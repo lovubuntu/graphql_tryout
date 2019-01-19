@@ -13,7 +13,13 @@ const typeDefs = `
 		description: String!
 		url: String
 	}
+
+	type Mutation {
+		post(url: String, description: String!): Link!
+	}
 `;
+
+let currentId = 1;
 
 const resolvers = {
 	Query: {
@@ -26,6 +32,18 @@ const resolvers = {
 		id: (parent) => parent.id,
 		description: (parent) => parent.description,
 		url: (parent) => parent.url
+	},
+
+	Mutation: {
+		post: (parent, args) => {
+			const link = {
+				id: ++currentId,
+				description: args.description,
+				url: args.url
+			};
+			links.push(link);
+			return link;
+		}
 	}
 }
 
