@@ -25,6 +25,13 @@ const resolvers = {
 			};
 			links.push(link);
 			return link;
+		},
+
+		update: (parent, args) => {
+			const link = links.find(l => l.id === args.id);
+			link.description = args.description;
+			link.url = args.url;
+			return link;
 		}
 	}
 }
