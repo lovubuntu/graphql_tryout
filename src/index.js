@@ -32,6 +32,12 @@ const resolvers = {
 			link.description = args.description;
 			link.url = args.url;
 			return link;
+		},
+
+		delete: (parent, args) => {
+			const linkIndex = links.findIndex(l => l.id === args.id);
+			console.log(linkIndex, args.id, parent, 'deleting', links);
+			return linkIndex === -1 ? {} : links.splice(linkIndex, 1)[0];
 		}
 	}
 }
