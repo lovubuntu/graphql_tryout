@@ -5,7 +5,11 @@ async function feed(parent, args, context) {
 			{description_contains: args.filter}
 		]
 	} : {};
-	return await context.prisma.links({where});
+	return await context.prisma.links({
+		where,
+		skip: args.skip,
+		first: args.first
+	});
 }
 
 module.exports = {
