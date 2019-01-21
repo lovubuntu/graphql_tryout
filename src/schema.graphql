@@ -1,7 +1,7 @@
 type Query {
 	info: String!
 	staticText: String
-	feed: [Link!]!
+	feed(filter: String): [Link!]!
 }
 
 type Link {
