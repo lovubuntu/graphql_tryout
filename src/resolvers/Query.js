@@ -8,7 +8,8 @@ async function feed(parent, args, context) {
 	return await context.prisma.links({
 		where,
 		skip: args.skip,
-		first: args.first
+		first: args.first,
+		orderBy: args.orderBy
 	});
 }
 
