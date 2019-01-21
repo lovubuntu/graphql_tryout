@@ -1,7 +1,12 @@
 type Query {
 	info: String!
 	staticText: String
-	feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): [Link!]!
+	feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
+}
+
+type Feed {
+	count: Int
+	links: [Link!]!
 }
 
 type Link {
