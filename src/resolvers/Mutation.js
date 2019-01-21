@@ -53,10 +53,27 @@ function deletePost(parent, args) {
 	return linkIndex === -1 ? {} : links.splice(linkIndex, 1)[0];
 }
 
+async function upvote(parent, args, context) {
+	const userId = getUserId(context);
+	const linkExists = await context.prisma.$exists.vote({
+	    user: { id: userId },
+	    link: { id: args.linkId },
+	});
+	if (linkExists) {
+		throw new Error(`Already voted for link: ${args.linkId}`)
+	}
+	const vote = {
+		link: {connect: {id: args.linkId}},
+		user: {connect: {id: userId}}
+	}
+	return context.prisma.createVote(vote);
+}
+
 module.exports = {
 	post,
 	update,
 	deletePost,
 	signup,
-	login
+	login,
+	upvote
 }
